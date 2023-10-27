@@ -1,0 +1,33 @@
+version: '3'
+services:
+  nginx:
+    container_name: MineNginx
+    restart: always
+    image: nginx:stable-alpine
+    ports:
+      - ${MP_PORT}:80
+    volumes:
+      - ./web:/var/www/html
+      - ${MP_DATA}/repo:/var/www/data
+      - ./config/nginx:/etc/nginx/conf.d
+    depends_on:
+      - es
+      - php
+  php:
+    container_name: MinePHP
+    restart: always
+    build: ./app/php
+    #shm_size: 2gb
+    volumes:
+      - ./web:/var/www/html
+      - ${MP_DATA}/repo:/var/www/data
+      - ./config/php/php.ini:/usr/local/etc/php/php.ini
+      - ./config/php/php-fpm.conf:/usr/local/etc/php-fpm.d/www.conf
+    depends_on:
+      - es
+  es:
+    container_name: elasticsearch
+    build: ./app/elasticsearch
+    restart: always    
+    volumes:
+      - ${MP_DATA}/es:/usr/share/elasticsearch/data
