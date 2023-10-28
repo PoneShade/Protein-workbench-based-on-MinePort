@@ -10,23 +10,27 @@
 
 ![CASP14 predictions](imgs/casp14_predictions.gif)
 
-## Installation and running your first prediction
+## 开始安装MineProt-Workbench
+**AlphaFold是我们项目的基础，故而需要先进行AlphaFold的装载**
+您需要一台运行Linux的机器，AlphaFold不支持其他操作系统。完整安装需要高达3TB的磁盘空间来存储基因数据库（建议使用SSD存储）和一块现代的NVIDIA GPU（内存更大的GPU可以预测更大的蛋白质结构）。
 
-You will need a machine running Linux, AlphaFold does not support other
-operating systems. Full installation requires up to 3 TB of disk space to keep
-genetic databases (SSD storage is recommended) and a modern NVIDIA GPU (GPUs
-with more memory can predict larger protein structures).
+请按照以下步骤操作：
+
+安装Docker。
+安装NVIDIA Container Toolkit以支持GPU。
+配置以非root用户身份运行Docker。
+克隆此存储库并进入其中。
 
 Please follow these steps:
 
-1.  Install [Docker](https://www.docker.com/).
-    *   Install
+1.  安装 [Docker](https://www.docker.com/).
+    *  安装
         [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
-        for GPU support.
-    *   Setup running
-        [Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user).
+        以支持GPU.
+    *   配置
+        [非root用户身份运行Docker](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user).
 
-1.  Clone this repository and `cd` into it.
+1.  克隆此存储库并进入其中。.
 
     ```bash
     git clone https://github.com/deepmind/alphafold.git
