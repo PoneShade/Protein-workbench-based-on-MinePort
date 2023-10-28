@@ -1,31 +1,9 @@
 ![header](imgs/header.jpg)
 
-# AlphaFold
+# MineProt_Workbench
 
-This package provides an implementation of the inference pipeline of AlphaFold
-v2. For simplicity, we refer to this model as AlphaFold throughout the rest of
-this document.
+这是一个基于AI蛋白质预测工具Alphafold2.3.2和蛋白质管理平台MineProt搭建的蛋白一个蛋白质工作台项目。用户可输入蛋白质的fasta文件或者pdb文件建立自己的蛋白质数据库，数据库可通过MineProt搭建于localhost上的图形化界面进行管理，并可进行对模型的可视化操作，具体操作见[MineProt操作手册](https://colab.research.google.com/github/deepmind/alphafold/blob/main/notebooks/AlphaFold.ipynb)
 
-We also provide:
-
-1.  An implementation of AlphaFold-Multimer. This represents a work in progress
-    and AlphaFold-Multimer isn't expected to be as stable as our monomer
-    AlphaFold system. [Read the guide](#updating-existing-installation) for how
-    to upgrade and update code.
-2.  The [technical note](docs/technical_note_v2.3.0.md) containing the models
-    and inference procedure for an updated AlphaFold v2.3.0.
-3.  A [CASP15 baseline](docs/casp15_predictions.zip) set of predictions along
-    with documentation of any manual interventions performed.
-
-Any publication that discloses findings arising from using this source code or
-the model parameters should [cite](#citing-this-work) the
-[AlphaFold paper](https://doi.org/10.1038/s41586-021-03819-2) and, if
-applicable, the
-[AlphaFold-Multimer paper](https://www.biorxiv.org/content/10.1101/2021.10.04.463034v1).
-
-Please also refer to the
-[Supplementary Information](https://static-content.springer.com/esm/art%3A10.1038%2Fs41586-021-03819-2/MediaObjects/41586_2021_3819_MOESM1_ESM.pdf)
-for a detailed description of the method.
 
 **You can use a slightly simplified version of AlphaFold with
 [this Colab notebook](https://colab.research.google.com/github/deepmind/alphafold/blob/main/notebooks/AlphaFold.ipynb)**
