@@ -33,85 +33,49 @@ Please follow these steps:
 1.  克隆此存储库并进入其中。.
 
     ```bash
-    git clone https://github.com/deepmind/alphafold.git
+    https://github.com/PoneShade/Protein-workbench-based-on-MinePort.git
     cd ./alphafold
     ```
 
-1.  Download genetic databases and model parameters:
+1. 下载遗传数据库和模型参数：
 
-    *   Install `aria2c`. On most Linux distributions it is available via the
-    package manager as the `aria2` package (on Debian-based distributions this
-    can be installed by running `sudo apt install aria2`).
+    *   安装“aria2c”。在大多数Linux发行版上，它可以通过包管理器作为“aria2”包提供（在基于Debian的发行版上可以通过运行“sudo apt-install aria2”来安装）。
 
-    *   Please use the script `scripts/download_all_data.sh` to download
-    and set up full databases. This may take substantial time (download size is
-    556 GB), so we recommend running this script in the background:
+    *   请使用脚本“scripts/download_all_data.sh”下载并设置完整的数据库。这可能需要相当长的时间（下载大小为556 GB），因此我们建议在后台运行此脚本：
 
     ```bash
     scripts/download_all_data.sh <DOWNLOAD_DIR> > download.log 2> download_all.log &
     ```
 
-    *   **Note: The download directory `<DOWNLOAD_DIR>` should *not* be a
-    subdirectory in the AlphaFold repository directory.** If it is, the Docker
-    build will be slow as the large databases will be copied into the docker
-    build context.
+    *   **注意：下载目录“＜download_DIR＞”不应该是AlphaFold存储库目录中的子目录。**如果是，Docker构建将很慢，因为大型数据库将被复制到Docker构建上下文中。
 
-    *   It is possible to run AlphaFold with reduced databases; please refer to
-    the [complete documentation](#genetic-databases).
-
-
-1.  Check that AlphaFold will be able to use a GPU by running:
+1.  检查AlphaFold是否能够通过运行以下程序使用GPU：
 
     ```bash
     docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
     ```
 
-    The output of this command should show a list of your GPUs. If it doesn't,
-    check if you followed all steps correctly when setting up the
-    [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
-    or take a look at the following
+    该命令的输出应该显示GPU的列表。如果没有，请检查您在设置
+   [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
+    时是否出现问题或者参考以下文档
     [NVIDIA Docker issue](https://github.com/NVIDIA/nvidia-docker/issues/1447#issuecomment-801479573).
 
-    If you wish to run AlphaFold using Singularity (a common containerization
-    platform on HPC systems) we recommend using some of the third party Singularity
-    setups as linked in https://github.com/deepmind/alphafold/issues/10 or
-    https://github.com/deepmind/alphafold/issues/24.
-
-1.  Build the Docker image:
+1.  构建Docker镜像：
 
     ```bash
     docker build -f docker/Dockerfile -t alphafold .
     ```
 
-    If you encounter the following error:
 
-    ```
-    W: GPG error: https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 InRelease: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY A4B469963BF863CC
-    E: The repository 'https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 InRelease' is not signed.
-    ```
-
-    use the workaround described in
-    https://github.com/deepmind/alphafold/issues/463#issuecomment-1124881779.
-
-1.  Install the `run_docker.py` dependencies. Note: You may optionally wish to
-    create a
-    [Python Virtual Environment](https://docs.python.org/3/tutorial/venv.html)
-    to prevent conflicts with your system's Python environment.
+1.安装 `run_docker.py` 依赖项. 
 
     ```bash
     pip3 install -r docker/requirements.txt
     ```
 
-1.  Make sure that the output directory exists (the default is `/tmp/alphafold`)
-    and that you have sufficient permissions to write into it.
+1.  请确保输出目录存在（默认值为“\/tmp\/alphalfold”），并且您有足够的权限写入该目录。
 
-1.  Run `run_docker.py` pointing to a FASTA file containing the protein
-    sequence(s) for which you wish to predict the structure (`--fasta_paths`
-    parameter). AlphaFold will search for the available templates before the
-    date specified by the `--max_template_date` parameter; this could be used to
-    avoid certain templates during modeling. `--data_dir` is the directory with
-    downloaded genetic databases and `--output_dir` is the absolute path to the
-    output directory.
+1.  运行指向FASTA文件的“Run_docker.py”，该文件包含要预测其结构的蛋白质序列（`--FASTA_paths`参数）。AlphaFold将在`--max_template_date`参数指定的日期之前搜索可用的模板；这可以用于在建模过程中避免使用某些模板`--data_dir`是下载了遗传数据库的目录，而`--output_dir`是输出目录的绝对路径。
 
     ```bash
     python3 docker/run_docker.py \
@@ -121,15 +85,11 @@ Please follow these steps:
       --output_dir=/home/user/absolute_path_to_the_output_dir
     ```
 
-1.  Once the run is over, the output directory shall contain predicted
-    structures of the target protein. Please check the documentation below for
-    additional options and troubleshooting tips.
+### 基因数据库：
 
-### Genetic databases
+此步骤需要在您的机器上安装aria2c。
 
-This step requires `aria2c` to be installed on your machine.
-
-AlphaFold needs multiple genetic (sequence) databases to run:
+AlphaFold需要多个基因（序列）数据库才能运行：
 
 *   [BFD](https://bfd.mmseqs.com/),
 *   [MGnify](https://www.ebi.ac.uk/metagenomics/),
@@ -140,27 +100,33 @@ AlphaFold needs multiple genetic (sequence) databases to run:
 *   [UniProt](https://www.uniprot.org/uniprot/) – only for AlphaFold-Multimer,
 *   [UniRef90](https://www.uniprot.org/help/uniref).
 
-We provide a script `scripts/download_all_data.sh` that can be used to download
-and set up all of these databases:
+我们提供了一个脚本 `scripts/download_all_data.sh`可用于下载和设置所有这些数据库：
 
-*   Recommended default:
+*   推荐默认设置：
 
     ```bash
     scripts/download_all_data.sh <DOWNLOAD_DIR>
     ```
 
-    will download the full databases.
+    将下载完整数据库。
 
-*   With `reduced_dbs` parameter:
+*   使用 `reduced_dbs` 参数:
 
     ```bash
     scripts/download_all_data.sh <DOWNLOAD_DIR> reduced_dbs
     ```
 
-    will download a reduced version of the databases to be used with the
-    `reduced_dbs` database preset. This shall be used with the corresponding
-    AlphaFold parameter `--db_preset=reduced_dbs` later during the AlphaFold run
-    (please see [AlphaFold parameters](#running-alphafold) section).
+    将下载用于
+    `reduced_dbs`数据库预设的数据库的精简版本。在AlphaFold运行过程中，应使用相应的AlphaFold参数 `--db_preset=reduced_dbs` 
+    ( 请参阅[AlphaFold参数部分](#running-alphafold) section).
+
+**这样Alphafold便配置完成了，接下来我们将配置MineProt**
+  ```bash
+    cd path/to/MineProt
+    toolkit/setup.sh -p 80 -d ./data
+ ```
+几分钟后，您可以访问位于http://localhost的MineProt站点。
+
 
 :ledger: **Note: The download directory `<DOWNLOAD_DIR>` should *not* be a
 subdirectory in the AlphaFold repository directory.** If it is, the Docker build
