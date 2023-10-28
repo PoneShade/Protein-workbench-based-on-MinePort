@@ -5,11 +5,8 @@
 这是一个基于AI蛋白质预测工具Alphafold2.3.2和蛋白质管理平台MineProt搭建的蛋白一个蛋白质工作台项目。用户可按照[Alphafold使用指南](https://github.com/google-deepmind/alphafold/blob/main/README.md)输入蛋白质的fasta文件或者pdb文件建立自己的蛋白质数据库，数据库可通过MineProt搭建于localhost上的图形化界面进行管理，并可进行对模型的可视化操作，具体操作见[MineProt操作手册](https://github.com/huiwenke/MineProt/README.md)
 
 
-**目前项目版本为V1.0.0demo，其中可能存在这很多不完善的地方，如果有任何问题可以通过[2649483803@qq.com]()**
-or community-supported versions (see below).
+**目前项目版本为V1.0.0demo，其中可能存在这很多不完善的地方，如果有任何问题可以通过[pan1704240016@outlook.com](mailto:pan1704240016@outlook.com)找到我**
 
-
-[alphafold@deepmind.com](mailto:alphafold@deepmind.com).
 
 ![CASP14 predictions](imgs/casp14_predictions.gif)
 
